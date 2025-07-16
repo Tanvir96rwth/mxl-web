@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import * as config from '$lib/config';
 	import '../app.css';
 
@@ -20,8 +21,8 @@
 
 <OneColumnLayout
 	><Navbar>
-		<li><a href="/">Lotka Volterra</a></li>
-		<li><a href="/population-dynamics">Population dynamics</a></li>
+		<li><a href="{base}/">Lotka Volterra</a></li>
+		<li><a href="{base}/population-dynamics">Population dynamics</a></li>
 	</Navbar>
 	{@render children()}
 </OneColumnLayout>
