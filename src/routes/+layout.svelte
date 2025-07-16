@@ -7,7 +7,6 @@
 	import OneColumnLayout from '$lib/Page.svelte';
 
 	let { children } = $props();
-	export const prerender = true;
 </script>
 
 <!-- SEO -->
