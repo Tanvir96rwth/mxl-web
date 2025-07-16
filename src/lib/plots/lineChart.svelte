@@ -1,30 +1,31 @@
 <script lang="ts">
 	import Chart from 'chart.js/auto';
 
-	let canvas: HTMLCanvasElement;
-	let chart: Chart;
 	let { data } = $props();
 
-	function makeChart(canvas, data) {
+	function makeChart(canvas: HTMLCanvasElement, data: any) {
 		const chart = new Chart(canvas, {
 			type: 'line',
 			data: data,
 			options: {
 				responsive: true,
-				maintainAspectRatio: true,
+				maintainAspectRatio: false,
 				scales: {
 					y: {
 						beginAtZero: true,
 						max: 100
 					}
+				},
+				elements: {
+					point: { radius: 0 }
 				}
 			}
 		});
 
 		return {
-			update(data) {
+			update(data: any) {
 				chart.data = data;
-				chart.update();
+				chart.update('resize');
 			},
 			destroy() {
 				if (chart) {

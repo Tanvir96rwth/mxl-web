@@ -5,21 +5,6 @@
 	function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
 		return arr.map((x) => x[n]);
 	}
-	// class LotkaVolterra {
-	// 	alpha = $state(0.1);
-	// 	beta = $state(0.02);
-	// 	gamma = $state(0.4);
-	// 	delta = $state(0.02);
-
-	// 	rhs(t: number, vars: number[]) {
-	// 		let [prey, pred] = vars;
-
-	// 		let dxdt = this.alpha * prey - this.beta * prey * pred;
-	// 		let dydt = -this.gamma * pred + this.delta * prey * pred;
-	// 		return [dxdt, dydt];
-	// 	}
-	// }
-	// let model = new LotkaVolterra();
 
 	let alpha = $state(0.1);
 	let beta = $state(0.02);
@@ -62,13 +47,20 @@
 	});
 </script>
 
-<h1>Welcome to SvelteKit</h1>
 <LineChart data={lineData} />
 <label>
 	<span>Alpha</span>
-	<input type="number" bind:value={alpha} min="0.01" max="1.0" step="0.1" />
+	<input type="number" bind:value={alpha} min="0.01" max="1.0" step="0.05" />
 </label>
 <label>
-	<span>Test</span>
-	<input type="number" bind:value={test} min="0.01" max="1.0" step="0.1" />
+	<span>Beta</span>
+	<input type="number" bind:value={beta} min="0.01" max="1.0" step="0.05" />
+</label>
+<label>
+	<span>Gamma</span>
+	<input type="number" bind:value={gamma} min="0.01" max="1.0" step="0.05" />
+</label>
+<label>
+	<span>Delta</span>
+	<input type="number" bind:value={delta} min="0.01" max="1.0" step="0.001" />
 </label>
