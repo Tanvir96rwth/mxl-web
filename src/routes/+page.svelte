@@ -11,7 +11,7 @@
 	let gamma = $state(0.4);
 	let delta = $state(0.02);
 
-	let test = $state(0.3);
+	let yLim = $state(100);
 
 	function lotka_volterra(t: number, vars: number[], pars: number[]) {
 		let [prey, pred] = vars;
@@ -50,7 +50,7 @@
 <h1>MxL web</h1>
 <p>Quick and dirty demo to get ODE integration running on the client-side.</p>
 
-<LineChart data={lineData} />
+<LineChart data={lineData} {yLim} />
 <div>
 	<label>
 		<span>Alpha</span>

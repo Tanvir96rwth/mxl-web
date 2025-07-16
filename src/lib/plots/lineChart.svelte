@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Chart from 'chart.js/auto';
 
-	let { data } = $props();
+	let { data, yLim } = $props();
 
-	function formatTicks(value: any) {
+	function formatTicks(value: any, index: any, ticks: any) {
 		const numValue = Number(value);
 		if (numValue >= 1000) {
 			return (numValue / 1000).toFixed(1) + 'k';
@@ -25,23 +25,33 @@
 				maintainAspectRatio: false,
 				scales: {
 					x: {
+						bounds: data,
 						title: {
 							display: true,
 							text: 'Time / unit'
 						},
 						ticks: {
-							callback: formatTicks
+							format: {
+								style: 'percent',
+								maximumFractionDigits: 2,
+								maximumSignificantDigits: 2
+							}
+							// callback: formatTicks
 						}
 					},
 					y: {
 						beginAtZero: true,
-						max: 100,
+						max: yLim,
 						title: {
 							display: true,
 							text: 'Amount / unit'
 						},
 						ticks: {
-							callback: formatTicks
+							format: {
+								// style: 'percent',
+								maximumFractionDigits: 2,
+								maximumSignificantDigits: 2
+							}
 						}
 					}
 				},
