@@ -9,7 +9,7 @@ export function integrate(
         stepSize: number,
         pars: number[]
     }) {
-    const n = Math.ceil((tEnd - tStart) / stepSize)
+    const n = Math.ceil((tEnd - tStart) / stepSize) + 1
     let values: Array<Array<number>> = Array(n)
     let time: Array<number> = Array.from(Array(n), (_, k) => k * stepSize + tStart)
 

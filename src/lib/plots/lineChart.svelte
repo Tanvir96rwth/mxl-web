@@ -3,6 +3,19 @@
 
 	let { data } = $props();
 
+	function formatTicks(value: any) {
+		const numValue = Number(value);
+		if (numValue >= 1000) {
+			return (numValue / 1000).toFixed(1) + 'k';
+		} else if (numValue >= 100) {
+			return Math.round(numValue).toString();
+		} else if (numValue >= 10) {
+			return numValue.toFixed(1);
+		} else {
+			return numValue.toFixed(2);
+		}
+	}
+
 	function makeChart(canvas: HTMLCanvasElement, data: any) {
 		const chart = new Chart(canvas, {
 			type: 'line',
@@ -11,9 +24,25 @@
 				responsive: true,
 				maintainAspectRatio: false,
 				scales: {
+					x: {
+						title: {
+							display: true,
+							text: 'Time / unit'
+						},
+						ticks: {
+							callback: formatTicks
+						}
+					},
 					y: {
 						beginAtZero: true,
-						max: 100
+						max: 100,
+						title: {
+							display: true,
+							text: 'Amount / unit'
+						},
+						ticks: {
+							callback: formatTicks
+						}
 					}
 				},
 				elements: {
@@ -42,11 +71,12 @@
 
 <style>
 	.chart-container {
-		width: 800px;
-		height: 400px;
-		margin: 2rem 0;
+		width: 100%;
+		min-height: 400px;
+		height: auto;
+		margin: 1rem 0;
+		padding: 2rem;
 		border: 1px solid #ccc;
-		padding: 1rem;
 	}
 
 	canvas {

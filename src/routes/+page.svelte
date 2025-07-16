@@ -47,20 +47,32 @@
 	});
 </script>
 
+<h1>MxL web</h1>
+<p>Quick and dirty demo to get ODE integration running on the client-side.</p>
+
 <LineChart data={lineData} />
-<label>
-	<span>Alpha</span>
-	<input type="number" bind:value={alpha} min="0.01" max="1.0" step="0.05" />
-</label>
-<label>
-	<span>Beta</span>
-	<input type="number" bind:value={beta} min="0.01" max="1.0" step="0.05" />
-</label>
-<label>
-	<span>Gamma</span>
-	<input type="number" bind:value={gamma} min="0.01" max="1.0" step="0.05" />
-</label>
-<label>
-	<span>Delta</span>
-	<input type="number" bind:value={delta} min="0.01" max="1.0" step="0.001" />
-</label>
+<div>
+	<label>
+		<span>Alpha</span>
+		<input type="number" bind:value={alpha} min="0.01" max="1.0" step="0.05" />
+	</label>
+	<label>
+		<span>Beta</span>
+		<input type="number" bind:value={beta} min="0.01" max="1.0" step="0.05" />
+	</label>
+	<label>
+		<span>Gamma</span>
+		<input type="number" bind:value={gamma} min="0.01" max="1.0" step="0.05" />
+	</label>
+	<label>
+		<span>Delta</span>
+		<input type="number" bind:value={delta} min="0.01" max="1.0" step="0.001" />
+	</label>
+</div>
+
+<style>
+	div {
+		display: flex;
+		flex-direction: row;
+	}
+</style>
