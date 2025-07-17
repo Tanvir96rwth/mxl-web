@@ -3,19 +3,6 @@
 
 	let { data, yLim } = $props();
 
-	function formatTicks(value: any, index: any, ticks: any) {
-		const numValue = Number(value);
-		if (numValue >= 1000) {
-			return (numValue / 1000).toFixed(1) + 'k';
-		} else if (numValue >= 100) {
-			return Math.round(numValue).toString();
-		} else if (numValue >= 10) {
-			return numValue.toFixed(1);
-		} else {
-			return numValue.toFixed(2);
-		}
-	}
-
 	function makeChart(canvas: HTMLCanvasElement, data: any) {
 		const chart = new Chart(canvas, {
 			type: 'line',
@@ -25,21 +12,20 @@
 				maintainAspectRatio: false,
 				scales: {
 					x: {
-						bounds: data,
+						type: 'linear',
 						title: {
 							display: true,
 							text: 'Time / unit'
 						},
 						ticks: {
 							format: {
-								style: 'percent',
 								maximumFractionDigits: 2,
 								maximumSignificantDigits: 2
 							}
-							// callback: formatTicks
 						}
 					},
 					y: {
+						type: 'linear',
 						beginAtZero: true,
 						max: yLim,
 						title: {
@@ -48,7 +34,6 @@
 						},
 						ticks: {
 							format: {
-								// style: 'percent',
 								maximumFractionDigits: 2,
 								maximumSignificantDigits: 2
 							}
