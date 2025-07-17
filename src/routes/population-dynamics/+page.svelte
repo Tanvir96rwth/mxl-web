@@ -54,7 +54,7 @@
 					data: arrayColumn(result.values, 0)
 				},
 				{
-					label: 'Coryne',
+					label: 'C. glutamicum',
 					data: arrayColumn(result.values, 1)
 				}
 			]
