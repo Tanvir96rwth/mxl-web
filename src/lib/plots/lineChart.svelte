@@ -1,7 +1,17 @@
 <script lang="ts">
-	import Chart from 'chart.js/auto';
+	import Chart, { type ChartData } from 'chart.js/auto';
 
-	let { data, yLim } = $props();
+	let {
+		data,
+		yLim,
+		xScale = 'linear',
+		yScale = 'linear'
+	}: {
+		data: ChartData;
+		yLim?: number;
+		xScale?: 'linear' | 'logarithmic' | 'category' | 'time' | 'timeseries';
+		yScale?: 'linear' | 'logarithmic' | 'category' | 'time' | 'timeseries';
+	} = $props();
 
 	function makeChart(canvas: HTMLCanvasElement, data: any) {
 		const chart = new Chart(canvas, {
@@ -12,7 +22,7 @@
 				maintainAspectRatio: false,
 				scales: {
 					x: {
-						type: 'linear',
+						type: xScale,
 						title: {
 							display: true,
 							text: 'Time / unit'
@@ -25,7 +35,7 @@
 						}
 					},
 					y: {
-						type: 'linear',
+						type: yScale,
 						beginAtZero: true,
 						max: yLim,
 						title: {
