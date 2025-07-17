@@ -68,11 +68,11 @@
 <div class="row">
 	<label>
 		<span>E. coli</span>
-		<input type="number" bind:value={e0} min="1.0" max="10.0" step="0.5" />
+		<input type="number" bind:value={e0} min="0.0" max="100.0" step="0.1" />
 	</label>
 	<label>
 		<span>C. glutamicum</span>
-		<input type="number" bind:value={c0} min="1.0" max="10.0" step="0.5" />
+		<input type="number" bind:value={c0} min="0.0" max="100.0" step="0.1" />
 	</label>
 	<label>
 		<span>Simulate until</span>
@@ -80,31 +80,35 @@
 	</label>
 </div>
 
-<h3>Parameters</h3>
+<h3>E. coli parameters</h3>
 <div class="row">
 	<label>
-		<span>mu_e</span>
-		<input type="number" bind:value={mu_e} min="0.01" max="1.0" step="0.05" />
+		<span>growth rate</span>
+		<input type="number" bind:value={mu_e} min="0.0" max="1.0" step="0.05" />
 	</label>
 	<label>
-		<span>mu_c</span>
-		<input type="number" bind:value={mu_c} min="0.01" max="1.0" step="0.05" />
+		<span>affinity</span>
+		<input type="number" bind:value={a_e} min="0.0" max="1.0" step="0.05" />
 	</label>
 	<label>
-		<span>a_e</span>
-		<input type="number" bind:value={a_e} min="0.01" max="1.0" step="0.05" />
-	</label>
-	<label>
-		<span>a_c</span>
-		<input type="number" bind:value={a_c} min="0.01" max="1.0" step="0.05" />
-	</label>
-	<label>
-		<span>delta_e</span>
+		<span>death rate</span>
 		<input type="number" bind:value={delta_e} min="0.0" max="1.0" step="0.05" />
 	</label>
+</div>
+
+<h3>C. glutamicum parameters</h3>
+<div class="row">
 	<label>
-		<span>theta</span>
-		<input type="number" bind:value={theta} min="0.01" max="1.0" step="0.05" />
+		<span>growth rate</span>
+		<input type="number" bind:value={mu_c} min="0.0" max="1.0" step="0.05" />
+	</label>
+	<label>
+		<span>affinity</span>
+		<input type="number" bind:value={a_c} min="0.0" max="1.0" step="0.05" />
+	</label>
+	<label>
+		<span>density loss</span>
+		<input type="number" bind:value={theta} min="0.0" max="1.0" step="0.05" />
 	</label>
 </div>
 
