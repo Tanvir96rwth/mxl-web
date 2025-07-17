@@ -28,11 +28,9 @@
 		// Rates
 		const v0 = e * a_e * mu_e;
 		const v1 = e * delta_e;
-		const v2 = c * a_c * mu_c;
-		const v3 = c * theta * v2;
 
 		const dEdt = v0 - v1;
-		const dCdt = v2 - v3;
+		const dCdt = c * a_c * mu_c - c * theta;
 		return [dEdt, dCdt];
 	}
 
@@ -73,7 +71,7 @@
 		<input type="number" bind:value={e0} min="1.0" max="10.0" step="0.5" />
 	</label>
 	<label>
-		<span>Coryne</span>
+		<span>C. glutamicum</span>
 		<input type="number" bind:value={c0} min="1.0" max="10.0" step="0.5" />
 	</label>
 	<label>
@@ -102,7 +100,7 @@
 	</label>
 	<label>
 		<span>delta_e</span>
-		<input type="number" bind:value={delta_e} min="0.01" max="1.0" step="0.05" />
+		<input type="number" bind:value={delta_e} min="0.0" max="1.0" step="0.05" />
 	</label>
 	<label>
 		<span>theta</span>
