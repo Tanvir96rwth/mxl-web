@@ -1,4 +1,6 @@
-import type { rHS } from ".";
+// Euler's method, first order
+
+import type { rHS } from "..";
 
 export function integrate(
     rhs: rHS,
