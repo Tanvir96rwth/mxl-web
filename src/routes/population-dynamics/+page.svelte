@@ -9,10 +9,9 @@
 	let mu_e = $state(0.4);
 	let mu_c = $state(0.3);
 	let a_e = $state(0.1);
-	let a_c = $state(0.1);
+	let a_c = $derived(1 - a_e);
 	let delta_e = $state(0.1);
 	let theta = $state(0.001);
-        $: a_c = 1 - a_e;
 
 	// Initial conditions
 	let e0 = $state(5.0);
