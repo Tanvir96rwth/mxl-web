@@ -1,7 +1,6 @@
 <script lang="ts">
   import LineChart from "$lib/chartjs/lineChart.svelte";
   import { euler } from "$lib/integrators/explicit";
-  import { wa_lotka_volterra } from "$lib/pkg/wa_integrate";
 
   function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
     return arr.map((x) => x[n]);
@@ -33,12 +32,6 @@
     console.log(`Javascript Integration took ${Date.now() - tStart} ms`);
     return res;
   });
-  let result2 = $derived.by(() => {
-    let tStart = Date.now();
-    let res = wa_lotka_volterra([10.0, 10.0], [alpha, beta, gamma, delta]);
-    console.log(`WebAssembly Integration took ${Date.now() - tStart} ms`);
-    return res;
-  });
 
   let lineData = $derived.by(() => {
     return {
@@ -55,28 +48,12 @@
       ],
     };
   });
-  let lineData2 = $derived.by(() => {
-    return {
-      labels: result2.time,
-      datasets: [
-        {
-          label: "Prey",
-          data: arrayColumn(result2.values, 0),
-        },
-        {
-          label: "Predator",
-          data: arrayColumn(result2.values, 1),
-        },
-      ],
-    };
-  });
 </script>
 
 <h1>MxL web</h1>
 <p>Quick and dirty demo to get ODE integration running on the client-side.</p>
 
 <LineChart data={lineData} {yLim} />
-<LineChart data={lineData2} {yLim} />
 <div>
   <label>
     <span>Alpha</span>
