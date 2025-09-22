@@ -6,37 +6,32 @@
     return arr.map((x) => x[n]);
   }
 
-  // == Parameters ====
-  let r_p = $state(0.4); // intrinsic growth (Public, P)
-  let r_m = $state(0.2); // intrinsic growth (Private, M)
-  let alpha = $state(0.0002); // cooperation: P→C
-  let beta = $state(0.0001); // competition: P↔M
-  let eta = $state(0.0001); // density constraint for P
-  let gamma = $state(0.0001); // density constraint for M
-  let nu = $state(0.00001); // density constraint for C
+  let mu_e = $state(0.4);
+  let mu_c = $state(0.3);
+  let a_e = $state(0.1);
+  let a_c = $derived(1 - a_e);
+  let delta_e = $state(0.1);
+  let theta = $state(0.001);
 
-  // = Initial conditions =
-  let p0 = $state(1.0); // Public metabolizers (P)
-  let c0 = $state(1.0); // Cheaters (C)
-  let m0 = $state(1.0); // Private metabolizers (M)
+  // Initial conditions
+  let e0 = $state(5.0);
+  let c0 = $state(5.0);
 
-  // == Simulation settings ===
+  // Simulation settings
   let tEnd = $state(100);
   let yLim = undefined;
 
-  // Eq.
-  // dP/dt = r_p·P − α·P·C − β·P·M − η·P^2
-  // dC/dt = α·P·C − ν·C^2
-  // dM/dt = r_m·M − β·M·P − γ·M^2
   function model(t: number, vars: number[], pars: number[]) {
-    const [P, C, M] = vars;
-    const [r_p, r_m, alpha, beta, eta, gamma, nu] = pars;
+    const [e, c] = vars;
+    const [mu_e, mu_c, a_e, a_c, delta_e, theta] = pars;
 
-    const dPdt = r_p * P - alpha * P * C - beta * P * M - eta * P * P;
-    const dCdt = alpha * P * C - nu * C * C;
-    const dMdt = r_m * M - beta * M * P - gamma * M * M;
+    // Rates
+    const v0 = e * a_e * mu_e;
+    const v1 = e * delta_e;
 
-    return [dPdt, dCdt, dMdt];
+    const dEdt = v0 - v1;
+    const dCdt = c * a_c * mu_c - c * theta * c;
+    return [dEdt, dCdt];
   }
 
   let result = $derived.by(() => {
@@ -46,10 +41,10 @@
     // 	pars: [mu_e, mu_c, a_e, a_c, delta_e, theta]
     // });
     return euler(model, {
-      initialValues: [p0, c0, m0],
+      initialValues: [e0, c0],
       tEnd: tEnd,
       stepSize: 0.01,
-      pars: [r_p, r_m, alpha, beta, eta, gamma, nu],
+      pars: [mu_e, mu_c, a_e, a_c, delta_e, theta],
     });
   });
 
@@ -77,64 +72,49 @@
 <h3>Initial conditions & settings</h3>
 <div class="row">
   <label>
-    <span>P(0) — Public</span>
-    <input type="number" bind:value={p0} min="0.0" max="10000.0" step="1" />
+    <span>E. coli</span>
+    <input type="number" bind:value={e0} min="0.0" max="100.0" step="0.1" />
   </label>
   <label>
-    <span>C(0) — Cheaters</span>
-    <input type="number" bind:value={c0} min="0.0" max="10000.0" step="1" />
-  </label>
-  <label>
-    <span>M(0) — Private</span>
-    <input type="number" bind:value={m0} min="0.0" max="10000.0" step="1" />
+    <span>C. glutamicum</span>
+    <input type="number" bind:value={c0} min="0.0" max="100.0" step="0.1" />
   </label>
   <label>
     <span>Simulate until</span>
-    <input type="number" bind:value={tEnd} min="1.0" max="10000.0" step="10" />
+    <input type="number" bind:value={tEnd} min="10.0" max="10000.0" step="10" />
   </label>
 </div>
 
-<h3>Public (P) parameters</h3>
+<h3>E. coli parameters</h3>
 <div class="row">
   <label>
-    <span>r_p (growth rate)</span>
-    <input type="number" bind:value={r_p} min="0.0" max="1.0" step="0.00001" />
+    <span>growth rate</span>
+    <input type="number" bind:value={mu_e} min="0.0" max="1.0" step="0.05" />
   </label>
   <label>
-    <span>η (density constraint)</span>
-    <input type="number" bind:value={eta} min="0.0" max="1.0" step="0.00001" />
+    <span>affinity</span>
+    <input type="number" bind:value={a_e} min="0.0" max="1.0" step="0.05" />
+  </label>
+  <label>
+    <span>death rate</span>
+    <input type="number" bind:value={delta_e} min="0.0" max="1.0" step="0.05" />
   </label>
 </div>
 
-<h3>Cheaters (C) parameters</h3>
+<h3>C. glutamicum parameters</h3>
 <div class="row">
   <label>
-    <span>ν (density constraint)</span>
-    <input type="number" bind:value={nu} min="0.0" max="1.0" step="0.00001" />
+    <span>growth rate</span>
+    <input type="number" bind:value={mu_c} min="0.0" max="1.0" step="0.05" />
   </label>
-</div>
+  <label>
+    <span>affinity (1 − E. coli affinity)</span>
+    <input type="number" value={a_c} readonly />
+  </label>
 
-<h3>Private (M) parameters</h3>
-<div class="row">
   <label>
-    <span>r_m (growth rate)</span>
-    <input type="number" bind:value={r_m} min="0.0" max="5.0" step="0.0001" />
-  </label>
-  <label>
-    <span>γ (density constraint)</span>
-    <input type="number" bind:value={gamma} min="0.0" max="5.0" step="0.0001" />
-  </label>
-</div>
-
-<h3>Interaction parameters</h3>
-<div class="row">
-  <label>
-    <span>α (P→C cooperation)</span>
-    <input type="number" bind:value={alpha} min="0.0" max="1.0" step="0.0001" />
-  </label>
-  <label>
-    <span>β (P↔M competition)</span>
-    <input type="number" bind:value={beta} min="0.0" max="1.0" step="0.0001" />
+    <span>density loss</span>
+    <input type="number" bind:value={theta} min="0.0" max="1.0" step="0.05" />
   </label>
 </div>
 
