@@ -73,6 +73,7 @@ export function rk45(
       const yi = y.slice();
       for (let j = 0; j < i; j++) {
         const aj = a[i][j] ?? 0;
+
         for (let l = 0; l < nVars; l++) {
           yi[l] += h * aj * k[j][l];
         }
