@@ -19,8 +19,8 @@
   <meta name="twitter:card" content="summary" />
 </svelte:head>
 
-<OneColumnLayout
-  ><Navbar>
+<OneColumnLayout>
+  <Navbar>
     <li><a href="{base}/">Lotka Volterra</a></li>
     <li><a href="{base}/population-dynamics">Population dynamics</a></li>
     <li><a href="{base}/tripartite">Tripartite dynamics</a></li>

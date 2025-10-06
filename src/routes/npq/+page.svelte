@@ -108,7 +108,6 @@
 </script>
 
 <h1>Non-photochemical quenching</h1>
-<p>Quick and dirty demo to get ODE integration running on the client-side.</p>
 
 <LineChart data={lineData} {yLim} />
 <div>

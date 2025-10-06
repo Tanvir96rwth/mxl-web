@@ -1,6 +1,7 @@
 <script lang="ts">
   import LineChart from "$lib/chartjs/lineChart.svelte";
   import { euler } from "$lib/integrators/explicit";
+  import Slider from "$lib/Slider.svelte";
 
   function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
     return arr.map((x) => x[n]);
@@ -50,28 +51,16 @@
   });
 </script>
 
-<h1>MxL web</h1>
+<h1>Lotka-Volterra</h1>
 <p>Quick and dirty demo to get ODE integration running on the client-side.</p>
 
-<LineChart data={lineData} {yLim} />
 <div>
-  <label>
-    <span>Alpha</span>
-    <input type="number" bind:value={alpha} min="0.01" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>Beta</span>
-    <input type="number" bind:value={beta} min="0.01" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>Gamma</span>
-    <input type="number" bind:value={gamma} min="0.01" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>Delta</span>
-    <input type="number" bind:value={delta} min="0.01" max="1.0" step="0.001" />
-  </label>
+  <Slider name="Alpha" bind:val={alpha} min="0.01" max="1.0" step="0.05" />
+  <Slider name="Beta" bind:val={beta} min="0.01" max="1.0" step="0.05" />
+  <Slider name="Gamma" bind:val={gamma} min="0.01" max="1.0" step="0.05" />
+  <Slider name="Delta " bind:val={delta} min="0.01" max="1.0" step="0.001" />
 </div>
+<LineChart data={lineData} {yLim} />
 
 <style>
   div {
