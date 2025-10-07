@@ -53,6 +53,7 @@
 		"plotly.js-dist-min": "^3.0.3",
 		"shiki": "^3.8.0",
 		"svelte-fa": "^4.0.4",
+		"katex": "^0.16.11",
 		"svelte-media-queries": "^1.6.2"
 	}
 }
