@@ -5,12 +5,14 @@
     min,
     max,
     step,
+    callback,
   }: {
     val: number;
     min: string;
     max: string;
     step: string;
     name: string;
+    callback: () => void;
   } = $props();
 
   let liveVal = $state(finalValue);
@@ -24,7 +26,8 @@
   function stopDrag() {
     dragging = false;
     finalValue = liveVal;
-    console.log(liveVal);
+    console.log(`New slider value: ${liveVal}`);
+    callback();
   }
 </script>
 
