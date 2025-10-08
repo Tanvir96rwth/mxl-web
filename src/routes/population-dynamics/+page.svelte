@@ -1,6 +1,7 @@
 <script lang="ts">
   import LineChart from "$lib/chartjs/lineChart.svelte";
   import { euler } from "$lib/integrators/explicit/euler";
+  import Slider from "$lib/Slider.svelte";
 
   function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
     return arr.map((x) => x[n]);
@@ -67,60 +68,61 @@
 
 <h1>Population dynamics</h1>
 
-<LineChart data={lineData} {yLim} />
-
 <h3>Initial conditions & settings</h3>
 <div class="row">
-  <label>
-    <span>E. coli</span>
-    <input type="number" bind:value={e0} min="0.0" max="100.0" step="0.1" />
-  </label>
-  <label>
-    <span>C. glutamicum</span>
-    <input type="number" bind:value={c0} min="0.0" max="100.0" step="0.1" />
-  </label>
-  <label>
-    <span>Simulate until</span>
-    <input type="number" bind:value={tEnd} min="10.0" max="10000.0" step="10" />
-  </label>
+  <Slider name="E. coli" bind:val={e0} min="0.0" max="100.0" step="0.1" />
+  <Slider name="C. glutamicum" bind:val={c0} min="0.0" max="100.0" step="0.1" />
+  <Slider
+    name="Simulate until"
+    bind:val={tEnd}
+    min="10.0"
+    max="10000.0"
+    step="10"
+  />
 </div>
-
-<h3>E. coli parameters</h3>
 <div class="row">
-  <label>
-    <span>growth rate</span>
-    <input type="number" bind:value={mu_e} min="0.0" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>affinity</span>
-    <input type="number" bind:value={a_e} min="0.0" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>death rate</span>
-    <input type="number" bind:value={delta_e} min="0.0" max="1.0" step="0.05" />
-  </label>
+  <Slider
+    name="E. coli growth rate"
+    bind:val={mu_e}
+    min="0.0"
+    max="1.0"
+    step="0.05"
+  />
+  <Slider
+    name="E. coli affinity"
+    bind:val={a_e}
+    min="0.0"
+    max="1.0"
+    step="0.05"
+  />
+  <Slider
+    name="E. coli death rate"
+    bind:val={delta_e}
+    min="0.0"
+    max="1.0"
+    step="0.05"
+  />
+  <Slider
+    name="C. glut growth rate"
+    bind:val={mu_c}
+    min="0.0"
+    max="1.0"
+    step="0.05"
+  />
+  <Slider
+    name="C. glut density loss"
+    bind:val={theta}
+    min="0.0"
+    max="1.0"
+    step="0.05"
+  />
 </div>
-
-<h3>C. glutamicum parameters</h3>
-<div class="row">
-  <label>
-    <span>growth rate</span>
-    <input type="number" bind:value={mu_c} min="0.0" max="1.0" step="0.05" />
-  </label>
-  <label>
-    <span>affinity (1 − E. coli affinity)</span>
-    <input type="number" value={a_c} readonly />
-  </label>
-
-  <label>
-    <span>density loss</span>
-    <input type="number" bind:value={theta} min="0.0" max="1.0" step="0.05" />
-  </label>
-</div>
+<LineChart data={lineData} {yLim} />
 
 <style>
   .row {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 </style>

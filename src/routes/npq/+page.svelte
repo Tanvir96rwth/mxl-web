@@ -4,6 +4,7 @@
   import { kvaerno45 } from "$lib/integrators/implicit/kvaerno45";
   import type { Protocol } from "$lib/simulations/pam";
   import { pam } from "$lib/simulations/pam";
+  import Slider from "$lib/Slider.svelte";
   import { model } from "./model";
 
   type LineData = {
@@ -108,30 +109,22 @@
 </script>
 
 <h1>Non-photochemical quenching</h1>
-
-<LineChart data={lineData} {yLim} />
 <div>
-  <label>
-    <span>PPFD: {ppfd}</span>
-    <input type="range" bind:value={ppfd} min="50.0" max="100.0" step="10" />
-  </label>
+  <Slider name="PPFD" bind:val={ppfd} min="50.0" max="100.0" step="10" />
 </div>
+<LineChart data={lineData} {yLim} />
 
 <h2>PAM Simulation</h2>
-
-<LineChart data={pamData} />
 <div>
-  <label>
-    <span>Pulse PPFD: {pulsePpfd}</span>
-    <input
-      type="range"
-      bind:value={pulsePpfd}
-      min="1000.0"
-      max="2000.0"
-      step="100"
-    />
-  </label>
+  <Slider
+    name="Pulse PPFD"
+    bind:val={pulsePpfd}
+    min="1000.0"
+    max="2000.0"
+    step="10"
+  />
 </div>
+<LineChart data={pamData} />
 
 <style>
   div {

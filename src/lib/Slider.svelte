@@ -44,6 +44,9 @@
 </label>
 
 <style>
+  span {
+    font-size: 0.8rem;
+  }
   label {
     padding: 0 0.5rem;
   }

@@ -81,7 +81,7 @@
     height: auto;
     margin: 1rem 0;
     padding: 2rem;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
   }
 
   canvas {

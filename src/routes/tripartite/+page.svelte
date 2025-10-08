@@ -1,6 +1,7 @@
 <script lang="ts">
   import LineChart from "$lib/chartjs/lineChart.svelte";
   import { euler } from "$lib/integrators/explicit/euler";
+  import Slider from "$lib/Slider.svelte";
 
   function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
     return arr.map((x) => x[n]);
@@ -76,75 +77,108 @@
 
 <h1>Tripartite dynamics dynamics</h1>
 
+<div class="grid-row">
+  <span>Initial conditions & settings</span>
+  <div class="inner-row">
+    <Slider name="Public" bind:val={p0} min="0.0" max="10000.0" step="1" />
+    <Slider name="Cheaters" bind:val={c0} min="0.0" max="10000.0" step="1" />
+    <Slider name="Private" bind:val={m0} min="0.0" max="10000.0" step="1" />
+    <Slider
+      name="Simulate until t"
+      bind:val={tEnd}
+      min="1.0"
+      max="10000.0"
+      step="10"
+    />
+  </div>
+</div>
+
+<div class="grid-row">
+  <span>Public (P)</span>
+  <div class="inner-row">
+    <Slider
+      name="r_p (growth rate)"
+      bind:val={r_p}
+      min="0.0"
+      max="1.0"
+      step="0.00001"
+    />
+    <Slider
+      name="η (density)"
+      bind:val={eta}
+      min="0.0"
+      max="1.0"
+      step="0.00001"
+    />
+  </div>
+</div>
+
+<div class="grid-row">
+  <span>Cheaters (C)</span>
+  <div class="inner-row">
+    <Slider
+      name="ν (density)"
+      bind:val={nu}
+      min="0.0"
+      max="1.0"
+      step="0.00001"
+    />
+  </div>
+</div>
+<div class="grid-row">
+  <span>Private (M)</span>
+  <div class="inner-row">
+    <Slider
+      name="r_m (growth rate)"
+      bind:val={r_m}
+      min="0.0"
+      max="5.0"
+      step="0.0001"
+    />
+    <Slider
+      name="γ (density)"
+      bind:val={gamma}
+      min="0.0"
+      max="5.0"
+      step="0.0001"
+    />
+  </div>
+</div>
+<div class="grid-row">
+  <span>Interaction</span>
+  <div class="inner-row">
+    <Slider
+      name="α (P→C cooperation)"
+      bind:val={alpha}
+      min="0.0"
+      max="1.0"
+      step="0.0001"
+    />
+    <Slider
+      name="β (P↔M competition)"
+      bind:val={beta}
+      min="0.0"
+      max="1.0"
+      step="0.0001"
+    />
+  </div>
+</div>
+
 <LineChart data={lineData} {yLim} />
 
-<h3>Initial conditions & settings</h3>
-<div class="row">
-  <label>
-    <span>P(0) — Public</span>
-    <input type="number" bind:value={p0} min="0.0" max="10000.0" step="1" />
-  </label>
-  <label>
-    <span>C(0) — Cheaters</span>
-    <input type="number" bind:value={c0} min="0.0" max="10000.0" step="1" />
-  </label>
-  <label>
-    <span>M(0) — Private</span>
-    <input type="number" bind:value={m0} min="0.0" max="10000.0" step="1" />
-  </label>
-  <label>
-    <span>Simulate until</span>
-    <input type="number" bind:value={tEnd} min="1.0" max="10000.0" step="10" />
-  </label>
-</div>
-
-<h3>Public (P) parameters</h3>
-<div class="row">
-  <label>
-    <span>r_p (growth rate)</span>
-    <input type="number" bind:value={r_p} min="0.0" max="1.0" step="0.00001" />
-  </label>
-  <label>
-    <span>η (density constraint)</span>
-    <input type="number" bind:value={eta} min="0.0" max="1.0" step="0.00001" />
-  </label>
-</div>
-
-<h3>Cheaters (C) parameters</h3>
-<div class="row">
-  <label>
-    <span>ν (density constraint)</span>
-    <input type="number" bind:value={nu} min="0.0" max="1.0" step="0.00001" />
-  </label>
-</div>
-
-<h3>Private (M) parameters</h3>
-<div class="row">
-  <label>
-    <span>r_m (growth rate)</span>
-    <input type="number" bind:value={r_m} min="0.0" max="5.0" step="0.0001" />
-  </label>
-  <label>
-    <span>γ (density constraint)</span>
-    <input type="number" bind:value={gamma} min="0.0" max="5.0" step="0.0001" />
-  </label>
-</div>
-
-<h3>Interaction parameters</h3>
-<div class="row">
-  <label>
-    <span>α (P→C cooperation)</span>
-    <input type="number" bind:value={alpha} min="0.0" max="1.0" step="0.0001" />
-  </label>
-  <label>
-    <span>β (P↔M competition)</span>
-    <input type="number" bind:value={beta} min="0.0" max="1.0" step="0.0001" />
-  </label>
-</div>
-
 <style>
-  .row {
-    display: flex;
-    flex-direction: row;
+  span {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .grid-row {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+  }
+  .inner-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 10rem);
+    align-items: center;
+    gap: 0 1rem;
   }
 </style>
