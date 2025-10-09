@@ -1,6 +1,7 @@
 <script lang="ts">
   import LineChart from "$lib/chartjs/lineChart.svelte";
   import { euler } from "$lib/integrators/explicit/euler";
+  import Math from "$lib/Math.svelte";
   import Slider from "$lib/Slider.svelte";
 
   function arrayColumn<T>(arr: Array<Array<T>>, n: number): Array<T> {
@@ -64,9 +65,16 @@
       ],
     };
   });
+  const eqE = String.raw`\frac{dE}{dt} = E\,a_e\,\mu_e - E\,\delta_e`;
+  const eqC = String.raw`\frac{dC}{dt} = C\,a_c\,\mu_c - \theta\,C^2`;
 </script>
 
 <h1>Population dynamics</h1>
+<section>
+  <h3>Model equations</h3>
+  <Math tex={eqE} display />
+  <Math tex={eqC} display />
+</section>
 
 <h3>Initial conditions & settings</h3>
 <div class="row">
