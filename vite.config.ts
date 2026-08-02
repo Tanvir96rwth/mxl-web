@@ -1,6 +1,7 @@
 import { cpSync, readdirSync, readFileSync } from "fs";
 import { createRequire } from "module";
 import { dirname, extname, join } from "path";
+import { enhancedImages } from "@sveltejs/enhanced-img";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig, type Plugin } from "vite";
 import wasm from "vite-plugin-wasm";
@@ -53,7 +54,7 @@ function serveAndCopyCoreStatic(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [sveltekit(), wasm(), serveAndCopyCoreStatic()],
+  plugins: [enhancedImages(), sveltekit(), wasm(), serveAndCopyCoreStatic()],
   worker: {
     format: "es",
   },

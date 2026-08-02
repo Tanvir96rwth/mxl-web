@@ -1,7 +1,7 @@
 <script lang="ts">
   import { backends, type Analyses } from "$lib";
   import AnalysesDashboard from "$lib/AnalysesDashboard.svelte";
-  import scheme from "$lib/assets/tomato_KEA3.png";
+  import scheme from "$lib/assets/tomato_KEA3.png?enhanced";
   import type { PamGroup } from "$lib/protocol";
   import { SectionMain as Main } from "@computational-biology-aachen/design";
   import { initModel } from "./model";
@@ -179,16 +179,17 @@
       protocols to reproduce the resulting quenching dynamics.
     </p>
     <div class="centered">
-      <img
+      <enhanced:img
         src={scheme}
         alt="model-scheme"
+        class="scheme-img"
       />
     </div>
   </AnalysesDashboard>
 </Main>
 
 <style>
-  img {
+  :global(.scheme-img) {
     width: 100%;
     max-width: 90rem;
   }
