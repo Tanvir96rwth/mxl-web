@@ -29,8 +29,4 @@ export type AddNode = {
   children: [EditorNode, EditorNode];
 };
 export type EditorNode =
-  | SymbolNode
-  | NumberNode
-  | DivideNode
-  | MulNode
-  | AddNode;
+  SymbolNode | NumberNode | DivideNode | MulNode | AddNode;
